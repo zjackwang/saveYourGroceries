@@ -1,0 +1,71 @@
+:root {
+  --primary-color: #52b788;
+  --secondary-color: #d8f3dc;
+  --secondary-color-two: #2d6a4f;
+  --main-bg-color: #95d5b2;
+  --secondary-color-four: #b7e4c7;
+
+  --primary-dark-color: #081c15;
+  --primary-light-color: #d8f3dc;
+  --primary-text-color: #f7f7f7;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  color: var(--primary-text-color);
+}
+
+main {
+  margin: 2rem 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color-two);
+}
+a:hover {
+  color: var(--secondary-color);
+}
+
+/* Footer Component */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+footer .footer {
+}
+
+/* index */
+
+.img-main {
+  max-width: 80%;
+  height: auto;
+}
+
+.vert-center {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.hook {
+  margin-left: 2rem;
+}
+
+.hook h1 {
+  font-weight: 1000;
+  font-style: oblique;
+  font-size: 4rem;
+}
+
+.hook h4 {
+  margin-top: 1rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: 50%;
+  background-color: var(--secondary-color-two);
+}
