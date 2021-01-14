@@ -76,3 +76,25 @@ footer .footer {
   height: 30px;
   background-color: var(--secondary-color-two);
 }
+
+/* login/create */
+
+.user-form {
+  margin: 0;
+  /* position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */
+}
+
+.user-form label {
+  color: var(--primary-text-color);
+  font-size: 1.5rem;
+}
+
+.melon {
+  max-width: 500px;
+  /* position: fixed;
+  top: 30%;
+  right: 20%; */
+}
