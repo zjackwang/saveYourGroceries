@@ -1,5 +1,6 @@
 from flask import render_template, flash, request, jsonify, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from saveYourGroceries.app import app
@@ -9,10 +10,15 @@ from saveYourGroceries.forms import LoginForm, RegisterForm
 import saveYourGroceries.users.login
 import saveYourGroceries.config
 
+
 @app.route('/') 
 def index():
     if current_user.is_anonymous:
         return render_template("index.html")
+    else:
+        # json of item name, brand (if possible), category, and expiration date 
+        groceries = []
+        return render_template("user.html", groceries=groceries)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -31,7 +37,6 @@ def login():
         else:
             flash("Invalid username or password")
     return render_template('login.html', title='Sign In', form=form)
-
 
 @app.route('/logout')
 def logout():
@@ -56,3 +61,13 @@ def register():
         return redirect(url_for('index'))
             
     return render_template("register.html", form=form)
+
+@app.route('/scan')
+@login_required
+def scan():
+    return render_template("scan.html")
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    print(request.form)
+    return redirect(url_for("scan"))

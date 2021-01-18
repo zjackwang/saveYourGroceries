@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Create Account</title>
+{% endblock %}
+{% block body %}
+<div class="container-lg">
+    <div class="row">
+        <div class="col-sm">
+            <input type="file" name="image" accept="image/*" capture="user">
+            <input type="submit" value="Upload">
+        </div>
+        <div class="col-sm">
+            <div id="displayImage"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var input = document.querySelector('input[type=file]');
+    input.onchange = () => {
+        var file = input.files[0];
+        displayAsImage(file);
+    };
+
+    displayAsImage = (file) => {
+        var imgURL = URL.createObjectURL(file),
+            img = document.createElement('img');
+
+        img.onload = () => {
+            URL.revokeObjectURL(imgURL);
+        }
+
+        img.src = imgURL;
+        img.style.maxWidth = "70%";
+
+        display = document.querySelector('#displayImage');
+        display.appendChild(img);
+    }
+</script> 
+{% endblock %}
