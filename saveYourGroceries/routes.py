@@ -2,6 +2,7 @@ from flask import render_template, flash, request, jsonify, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
+import json 
 
 from saveYourGroceries.app import app
 from saveYourGroceries.users.user import User 
@@ -69,5 +70,12 @@ def scan():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    print(request.form)
+    if 'image' not in request.files:
+        flash("No file part")
+        return redirect(url_for('scan'))
+    file = request.files['image']
+    if file.filename == '':
+        flash("No image selected for uploading")
+        return redirect(url_for('scan'))
+    print(file)
     return redirect(url_for("scan"))

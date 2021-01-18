@@ -1,13 +1,23 @@
 {% extends "base.html" %}
 {% block head %}
 <title>Create Account</title>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 {% endblock %}
 {% block body %}
 <div class="container-lg">
-    <div class="row">
+    <div class="row text-center">
         <div class="col-sm">
-            <input type="file" name="image" accept="image/*" capture="user">
-            <input type="submit" value="Upload">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <input type="file" name="image" accept="image/*" capture="user">
+                </div> 
+                <br>
+                <div class="row">
+                    <input type="submit" value="Upload">
+                </div>
+            </form>
+            
         </div>
         <div class="col-sm">
             <div id="displayImage"></div>
@@ -16,9 +26,11 @@
 </div>
 
 <script>
-    var input = document.querySelector('input[type=file]');
+    let input = document.querySelector('input[type=file]');
+    let submit = document.querySelector('input[type=submit]'); 
+
     input.onchange = () => {
-        var file = input.files[0];
+        let file = input.files[0];
         displayAsImage(file);
     };
 
@@ -31,10 +43,47 @@
         }
 
         img.src = imgURL;
-        img.style.maxWidth = "70%";
+        img.style.maxWidth = "100%";
+        img.style.height = "auto";
+        img.className = "img-fluid";
 
         display = document.querySelector('#displayImage');
+        if (display.hasChildNodes()) {
+            display.removeChild(display.childNodes[0])
+        }
         display.appendChild(img);
     }
+
+    uploadImage = () => {
+        if (input.files[0] == null) {
+            alert("Please select an image first");
+        } else {
+            let file = input.files[0]; 
+            console.log(file);
+
+            $.ajax({
+                type: "POST",
+                url: "/upload",
+                data: URL.createObjectURL(file), 
+                success: (data) => {
+                    if (data.success) {
+                        alert("Successfully uploaded file");
+                    } else {
+                        alert("Error uploading file");
+                    }
+                },
+                error: (data) => {
+                    alert("Error uploading file"); 
+                }
+            })
+
+            // let form = new FormData(),
+            //     xhr = new XMLHttpRequest(); 
+            // form.append('image', file); 
+            // xhr.open('post', '/upload', true);  
+            // xhr.send(form);
+        }
+    }
+    
 </script> 
 {% endblock %}
