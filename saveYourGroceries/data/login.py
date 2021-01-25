@@ -1,7 +1,7 @@
 from flask_login import LoginManager
 
-from saveYourGroceries.users.user import User 
-from saveYourGroceries.users.db import users_db
+from saveYourGroceries.data.user import User 
+from saveYourGroceries.data.db import users_db
 from saveYourGroceries.app import app 
 
 loginManager = LoginManager(app) 

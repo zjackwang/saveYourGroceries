@@ -15,3 +15,6 @@ app.secret_key = secret_key
 # MongoClient
 mongo_key = os.getenv('MONGO_KEY')
 
+# Azure
+azure_key = os.getenv('AZURE_KEY1')
+

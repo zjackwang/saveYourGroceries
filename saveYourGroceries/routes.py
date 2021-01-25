@@ -5,20 +5,23 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json 
 
 from saveYourGroceries.app import app
-from saveYourGroceries.users.user import User 
+from saveYourGroceries.data.user import User 
 from saveYourGroceries.forms import LoginForm, RegisterForm
+from saveYourGroceries.rparser import analyze_receipt
 
-import saveYourGroceries.users.login
-import saveYourGroceries.config
+import saveYourGroceries.data.login
+import saveYourGroceries.config 
+from saveYourGroceries.data import grocery
 
 
-@app.route('/') 
+@app.route('/', methods=['GET', 'POST']) 
 def index():
     if current_user.is_anonymous:
         return render_template("index.html")
     else:
         # json of item name, brand (if possible), category, and expiration date 
-        groceries = []
+        ret = grocery.get_groceries(current_user.username)
+        groceries = [item for item in ret]
         return render_template("user.html", groceries=groceries)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -77,5 +80,32 @@ def upload():
     if file.filename == '':
         flash("No image selected for uploading")
         return redirect(url_for('scan'))
-    print(file)
+    
+    
+    receipt_json = analyze_receipt(file)
+
+    r_info = receipt_json['analyzeResult']['documentResults'][0]['fields']
+    store_name = r_info['MerchantName']['text'] if r_info['MerchantName']['confidence'] > .5 else None 
+    store_products = [(obj['valueObject']['Name']['text'], obj['valueObject']['TotalPrice']['text']) for obj in r_info['Items']['valueArray']]
+
+    date = None 
+    
+    if len(receipt_json['analyzeResult']['documentResults'][0]['fields']) > 4:
+        date = receipt_json['analyzeResult']['documentResults'][0]['fields']['TransactionDate']['valueDate']
+
+    items = [item for item, price in store_products]
+
+    for item in items: 
+        grocery.add_groceries(current_user.username, item, date) 
+
+    flash(f"Success! You have added {len(items)} groceries to your account")
     return redirect(url_for("scan"))
+
+
+@app.route('/delete', methods=["POST"])
+def delete():
+    item = request.form['item']
+
+    grocery.remove_grocery(current_user.username, item) 
+
+    return redirect(url_for('index'))

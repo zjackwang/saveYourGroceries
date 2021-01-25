@@ -7,7 +7,29 @@
     <h1>Hi {{ current_user.username }}!</h1> 
     <ul>
         {% for grocery in groceries %}
+        <ul class="list-group">
+            <li class="list-group-item bg-info">
+                {{ grocery.item }}
+                <small>Date Bought: {{ grocery.date_purchased }}</small>
+                <button onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.item }}">Delete</button>
+            </li>
+        </ul>
         {% endfor %}
     </ul>
 </div>
+<script>
+    deleteItem = (item) => {
+        console.log(item);
+        $.post('/delete',
+        {item},
+        (data, status) => {
+            console.log("status:" +status);
+            refreshPage();
+        })
+    }
+
+    refreshPage = () => {
+        location.reload(true); 
+    }
+</script>
 {% endblock %}
