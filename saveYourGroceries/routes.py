@@ -17,7 +17,6 @@ import saveYourGroceries.config
 from saveYourGroceries.data import grocery
 
 
-
 @app.route('/', methods=['GET', 'POST']) 
 def index():
     if current_user.is_anonymous:
@@ -25,7 +24,13 @@ def index():
     else:
         # json of item name, brand (if possible), category, and expiration date 
         ret = grocery.get_groceries(current_user.username)
-        groceries = [item for item in ret]
+        groceries = [{
+            'name': item['item'], 
+            'date_purchased': date.fromordinal(item['date_purchased']),
+            'date_expiration': date.fromordinal(item['date_expiration'])
+            } 
+            for item in ret
+        ]
         return render_template("user.html", groceries=groceries)
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -1,21 +1,39 @@
 {% extends "base.html" %}
 {% block head %}
 <title>{{ current_user.username }}</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 {% endblock %}
 {% block body %}
 <div class="container-lg">
-    <h1>Hi {{ current_user.username }}!</h1> 
-    <ul>
+    {% if groceries|length == 0 %}
+    <h1 class="product-title text-center">{{ current_user.username }}!</h1>
+    <h3 class="text-center">Please scan your first receipt to track your groceries.</h3>
+    {% else %}
+    <h3 class="product-title text-center">{{ groceries|length }} items currently uneaten</h3>
+    <table id="productTable" class="table table-bordered">
+        <thead>
+            <tr class="row-hdr">
+                <th scope="col">Date Bought</th>
+                <th scope="col">Reminder Date</th>
+                <th scope="col">Product Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
         {% for grocery in groceries %}
-        <ul class="list-group">
-            <li class="list-group-item bg-info">
-                {{ grocery.item }}
-                <small>Date Bought: {{ grocery.date_purchased }}</small>
-                <button onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.item }}">Delete</button>
-            </li>
-        </ul>
+            <tr class="row-bg-color">
+                <td>{{ grocery.date_purchased }}</td>
+                <td>{{ grocery.date_expiration }}</td>
+                <td>{{ grocery.name }}</td>
+                <td>
+                    <button onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.item }}">Eat</button>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
+    {% endif %}
 </div>
 <script>
     deleteItem = (item) => {
@@ -31,5 +49,10 @@
     refreshPage = () => {
         location.reload(true); 
     }
+
+    $(document).ready(function () {
+            $('#productTable').DataTable();
+    });
 </script>
 {% endblock %}
+

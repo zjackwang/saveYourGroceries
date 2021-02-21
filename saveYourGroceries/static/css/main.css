@@ -81,6 +81,7 @@ footer .footer {
 
 .user-form {
   margin: 0;
+  display: block;
   /* position: absolute;
   top: 50%;
   -ms-transform: translateY(-50%);
@@ -97,4 +98,18 @@ footer .footer {
   /* position: fixed;
   top: 30%;
   right: 20%; */
+}
+
+/* user */
+
+.product-title {
+  color: var(--secondary-color-two);
+}
+
+.row-hdr {
+  background-color: var(--primary-color);
+}
+
+.row-bg-color {
+  background-color: lightcyan;
 }
