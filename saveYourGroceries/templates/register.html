@@ -3,50 +3,74 @@
 <title>Create Account</title>
 {% endblock %}
 {% block body %}
-<div class="container-lg">
+<div class="form-container">
     <div class="user-form">
+        <h2 class="title">Sign Up</h2>
         <form action="" method="POST">
             <!-- CSRF Protection -->
             {{ form.hidden_tag() }}
-            <div>
+            <fieldset class="user-form-field">
                 {{ form.username.label }}
                 {{ form.username() }}
-                {% for error in form.username.errors %}
-                <span style="color: red;">[{{error}}]</span>
-                {% endfor %}
-            </div>
-            <div>
+                {% if form.username.errors %}
+                <ul class="errors">
+                    {% for error in form.username.errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </fieldset>
+            <fieldset class="user-form-field">
                 {{ form.password.label }}
                 {{ form.password() }}
-                {% for error in form.password.errors %}
-                <span style="color: red;">[{{error}}]</span>
-                {% endfor %}
-            </div>
-            <div>
+                {% if form.password.errors %}
+                <ul class="errors">
+                    {% for error in form.password.errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </fieldset>
+           <fieldset class="user-form-field">
                 {{ form.password2.label }}
                 {{ form.password2() }}
-                {% for error in form.password2.errors %}
-                <span style="color: red;">[{{error}}]</span>
-                {% endfor %}
-            </div>
-            <div>
-                {{ form.email.label }}
-                {{ form.email() }}
-                {% for error in form.email.errors %}
-                <span style="color: red;">[{{error}}]</span>
-                {% endfor %}
-            </div>
-            <div>
+                {% if form.password2.errors %}
+                <ul class="errors">
+                    {% for error in form.password2.errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </fieldset>
+            <fieldset class="user-form-field">
                 {{ form.name.label }}
                 {{ form.name() }}
-                {% for error in form.name.errors %}
-                <span style="color: red;">[{{error}}]</span>
-                {% endfor %}
-            </div>
-            <div>
-                {{ form.submit.label }}
+                {% if form.name.errors %}
+                <ul class="errors">
+                    {% for error in form.name.errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </fieldset>
+            <fieldset class="user-form-field">
+                {{ form.email.label }}
+                {{ form.email() }}
+                {% if form.email.errors %}
+                <ul class="errors">
+                    {% for error in form.email.errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </fieldset>
+            <!-- TODO when deployed  
+            <fieldset class="user-form-field">
+                {{ form.recaptcha() }}
+            </fieldset> -->
+            <fieldset class="user-form-field">
                 {{ form.submit() }}
-            </div>
+            </fieldset>
         </form>
     </div>
 </div>
