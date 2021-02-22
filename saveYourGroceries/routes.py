@@ -142,7 +142,6 @@ def upload():
 @app.route('/delete', methods=["POST"])
 def delete():
     item = request.form['item']
-
     grocery.remove_grocery(current_user.username, item) 
 
     return redirect(url_for('index'))

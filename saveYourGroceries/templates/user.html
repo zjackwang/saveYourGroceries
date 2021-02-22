@@ -7,7 +7,7 @@
 {% block body %}
 <div class="container-lg">
     {% if groceries|length == 0 %}
-    <h1 class="product-title text-center">{{ current_user.username }}!</h1>
+    <h1 class="product-title text-center">Hi {{ current_user.username }}!</h1>
     <h3 class="text-center">Please scan your first receipt to track your groceries.</h3>
     {% else %}
     <h3 class="product-title text-center">{{ groceries|length }} items currently uneaten</h3>
@@ -22,12 +22,12 @@
         </thead>
         <tbody>
         {% for grocery in groceries %}
-            <tr class="row-bg-color">
+            <tr class="row-bg-color" >
                 <td>{{ grocery.date_purchased }}</td>
                 <td>{{ grocery.date_expiration }}</td>
                 <td>{{ grocery.name }}</td>
                 <td>
-                    <button class="delete-button" onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.item }}">Eat</button>
+                    <button class="delete-button" onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.name }}">Eat</button>
                 </td>
             </tr>
         {% endfor %}
