@@ -44,15 +44,26 @@
             </div>
         </nav>
         <main class="container-fluid">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
+            <div id="flashModal" class="flash-modal modal " tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content flash-modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="modalText" class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div id="flashModal" class="flash-modal">
+                <div class="flash-modal-content">
+                    <span class="close">&times;</span>
+                    <div id="modalText"></div>
+                </div>
+            </div> -->
             {% block body %}{% endblock %}
         </main>
         <div class="footer">
@@ -63,4 +74,32 @@
             </footer>
         </div>
     </body>
+    <script>
+    let modal = document.getElementById("flashModal");
+    let modalText = document.getElementById("modalText");
+    document.getElementsByClassName("close")[0].onclick = () => {
+        modal.style.display = "none";
+    }    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        modal.style.display = "block";
+        console.log("{{ messages }}");
+        let info = document.createElement("ul");
+        {% for message in messages %}
+                let node = document.createElement("li");
+                let text = document.createTextNode("{{ message }}")
+                node.appendChild(text)
+                info.appendChild(node);
+        {% endfor %}
+        modalText.appendChild(info);
+    {% endif %}
+    {% endwith %}
+
+    window.onclick = (e) => {
+            console.log("click");
+            if (modal.style.display == "block") {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 </html>

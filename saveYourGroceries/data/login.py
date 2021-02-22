@@ -6,6 +6,7 @@ from saveYourGroceries.app import app
 
 loginManager = LoginManager(app) 
 loginManager.login_view = 'login'
+loginManager.session_protection = 'strong'
 
 @loginManager.user_loader
 def load_user(username): 

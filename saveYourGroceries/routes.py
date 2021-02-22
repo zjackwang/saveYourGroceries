@@ -80,6 +80,9 @@ def register():
 def scan():
     return render_template("scan.html")
 
+# TODO Notification
+def notify():
+    return ""
 
 """
 Finds only exact delimited words 
