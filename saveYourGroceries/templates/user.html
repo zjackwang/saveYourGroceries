@@ -10,7 +10,7 @@
     <h1 class="product-title text-center">Hi {{ current_user.username }}!</h1>
     <h3 class="text-center">Please scan your first receipt to track your groceries.</h3>
     {% else %}
-    <h3 class="product-title text-center">{{ groceries|length }} items currently uneaten</h3>
+    <h3 class="product-title text-center">You have {{ groceries|length }} items stored.</h3>
     <table id="productTable" class="table table-bordered">
         <thead>
             <tr class="row-hdr">
@@ -27,7 +27,10 @@
                 <td>{{ grocery.date_expiration }}</td>
                 <td>{{ grocery.name }}</td>
                 <td>
-                    <button class="delete-button" onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.name }}">Eat</button>
+                    <button class="delete-button" 
+                            onclick="deleteItem(this.id)" 
+                            type="button" name="delete" 
+                            id="{{ grocery.name }}">Consume</button>
                 </td>
             </tr>
         {% endfor %}
