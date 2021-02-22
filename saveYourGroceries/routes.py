@@ -121,7 +121,7 @@ def upload():
     store_name = r_info['MerchantName']['text'] if r_info['MerchantName']['confidence'] > .5 else None 
     store_products = [(obj['valueObject']['Name']['text'], obj['valueObject']['TotalPrice']['text']) for obj in r_info['Items']['valueArray']]
 
-    if "TransactionDate" in receipt_json['analyzeResult']['documentResults'][0]['fields'].Keys():
+    if "TransactionDate" in receipt_json['analyzeResult']['documentResults'][0]['fields'].keys():
         r_date = receipt_json['analyzeResult']['documentResults'][0]['fields']['TransactionDate']['valueDate'].split('/')
         p_date = date(r_date[0], r_date[1], r_date[2])
     else:
