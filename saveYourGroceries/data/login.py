@@ -16,7 +16,7 @@ def load_user(username):
     user = users_db.find_one(query)
     if not user: 
         return None 
-    return User(user['username'], user['email'], user['name'])
+    return User(user['username'], user['number'], user['name'])
 
 
 

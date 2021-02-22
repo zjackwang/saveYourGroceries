@@ -41,7 +41,7 @@ def login():
     if form.validate_on_submit():
         user = User.find_user(form.username.data) 
         if user and User.check_password(user['hashed_pwd'], form.password.data):
-            user_obj = User(user['username'], user['email'], user['name'])
+            user_obj = User(user['username'], user['number'], user['name'])
             login_user(user_obj)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
@@ -61,11 +61,11 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         username = form.username.data
-        email = form.email.data
+        number = form.number.data
         
         user = {
             "username": username,
-            "email": email,
+            "number": number,
             "name": form.name.data,
             "hashed_pwd": User.generate_password(form.password.data)
         }

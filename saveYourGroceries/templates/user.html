@@ -11,6 +11,7 @@
     <h3 class="text-center">Please scan your first receipt to track your groceries.</h3>
     {% else %}
     <h3 class="product-title text-center">You have {{ groceries|length }} items stored.</h3>
+    <!-- TODO Fix table look on mobile -->
     <table id="productTable" class="table table-bordered">
         <thead>
             <tr class="row-hdr">

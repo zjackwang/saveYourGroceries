@@ -5,9 +5,9 @@ from saveYourGroceries.data.db import users_db
 
 
 class User(UserMixin):
-    def __init__(self, username, email, name):
+    def __init__(self, username, number, name):
         self.username = username
-        self.email = email
+        self.number = number
         self.name = name 
     
     def get_id(self):
@@ -22,10 +22,10 @@ class User(UserMixin):
         return generate_password_hash(password)
     
     @staticmethod
-    def find_user(username="user", email=None):
+    def find_user(username="user", number=None):
         query = {}
-        if email:
-            query["email"] = email
+        if number:
+            query["number"] = number
         else: 
             query["username"] = username
         user = users_db.find_one(query)
