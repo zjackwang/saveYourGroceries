@@ -178,8 +178,7 @@ textarea:focus {
   box-shadow: unset;
 }
 
-input[type="submit"],
-button {
+input[type="submit"] {
   background: #5eb9d7;
   color: white;
   border-radius: 2px;
@@ -190,8 +189,7 @@ button {
   transition: all 0.3s ease-out;
 }
 
-input[type="submit"]:hover,
-button:hover {
+input[type="submit"]:hover {
   cursor: pointer;
   background: white;
   color: #5eb9d7;
@@ -259,4 +257,33 @@ i {
 
 .row-bg-color {
   background-color: lightcyan;
+}
+
+.delete-button {
+  background: var(--main-bg-color);
+  width: 80%;
+  border: 1px solid var(--main-bg-color);
+  line-height: 1;
+}
+
+/* scan */
+
+.scan-container form {
+  background: var(--primary-light-color);
+}
+
+input[type="file"] {
+  border-color: var(--primary-light-color);
+  margin: 15px;
+  border-radius: 2px;
+}
+.scan-container input[type="submit"] {
+  background: var(--main-bg-color);
+  border: 1px solid var(--main-bg-color);
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.scan-container input[type="submit"]:hover {
+  color: var(--secondary-color-two);
 }

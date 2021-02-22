@@ -15,7 +15,7 @@ class RegisterForm(FlaskForm):
     password2 = PasswordField("Repeat Password", validators=[DataRequired(), EqualTo('password')])
     email = StringField("Email", validators=[DataRequired(), Email()])
     name = StringField("Name", validators=[DataRequired()])
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
     submit = SubmitField("Create Account")
 
     def validate_username(self, username):

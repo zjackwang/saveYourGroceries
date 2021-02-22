@@ -17,7 +17,7 @@
                 <th scope="col">Date Bought</th>
                 <th scope="col">Reminder Date</th>
                 <th scope="col">Product Name</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <td>{{ grocery.date_expiration }}</td>
                 <td>{{ grocery.name }}</td>
                 <td>
-                    <button onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.item }}">Eat</button>
+                    <button class="delete-button" onclick="deleteItem(this.id)" type="button" name="delete" id="{{ grocery.item }}">Eat</button>
                 </td>
             </tr>
         {% endfor %}
