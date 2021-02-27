@@ -12,8 +12,9 @@ from saveYourGroceries.data.user import User
 from saveYourGroceries.forms import LoginForm, RegisterForm
 from saveYourGroceries.rparser import analyze_receipt
 
-import saveYourGroceries.data.login
+import saveYourGroceries.login
 import saveYourGroceries.config 
+import saveYourGroceries.notify as notify
 from saveYourGroceries.data import grocery
 
 
@@ -31,6 +32,7 @@ def index():
             } 
             for item in ret
         ]
+        notify.daily_notification()
         return render_template("user.html", groceries=groceries)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -80,9 +82,6 @@ def register():
 def scan():
     return render_template("scan.html")
 
-# TODO Notification
-def notify():
-    return ""
 
 """
 Finds only exact delimited words 
@@ -103,7 +102,6 @@ def process_grocery_exp(item, purchase_date, product_list):
             return purchase_date + delta_t
 
     return purchase_date + DEFAULT_DAYS
-
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -140,7 +138,6 @@ def upload():
 
     flash(f"Success! You have added {len(items)} groceries to your account")
     return redirect(url_for("scan"))
-
 
 @app.route('/delete', methods=["POST"])
 def delete():

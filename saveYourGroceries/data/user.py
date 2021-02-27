@@ -36,3 +36,6 @@ class User(UserMixin):
     @staticmethod 
     def add_user(user):
         users_db.insert_one(user)
+
+def get_all_users():
+    return users_db.find()
