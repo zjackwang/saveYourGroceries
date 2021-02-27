@@ -1,1 +1,1 @@
-worker:celery -A saveYourGroceries.notify.celery worker -B
+web:gunicorn run:app
