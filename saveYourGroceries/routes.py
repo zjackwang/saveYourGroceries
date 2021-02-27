@@ -14,7 +14,6 @@ from saveYourGroceries.rparser import analyze_receipt
 
 import saveYourGroceries.login
 import saveYourGroceries.config 
-import saveYourGroceries.notify as notify
 from saveYourGroceries.data import grocery
 
 
@@ -32,7 +31,6 @@ def index():
             } 
             for item in ret
         ]
-        notify.daily_notification()
         return render_template("user.html", groceries=groceries)
 
 @app.route('/login', methods=['GET', 'POST'])
